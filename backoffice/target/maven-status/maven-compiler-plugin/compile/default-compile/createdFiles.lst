@@ -1,0 +1,4 @@
+com\razzouki\backoffice\controller\AddWorkServlet.class
+com\razzouki\backoffice\controller\AuthenticationServlet.class
+com\razzouki\backoffice\controller\CatalogueServlet.class
+com\razzouki\backoffice\controller\HomeServlet.class
