@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +36,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+        HttpSession session=request.getSession();
          out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -42,8 +44,16 @@ public class HomeServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>OnlineStore - Gestion de la boutique </h1>");
-            out.println("<br><a href=\"add-work-form.html\">Add Catalogue</a>");
-            out.println("<br><a href=\"catalogue\">Views Catalogue</a>");
+            
+            if(session.getAttribute("login")==null){
+                out.print("<h2>Welcome make sure to login</h2>");
+                out.println("<br><a href=\"login.html\">Login here</a>");
+                
+            }else{
+                out.print("<h2>Welcome "+session.getAttribute("login")+"</h2>");
+                out.println("<br><a href=\"add-work-form.html\">Add Catalogue</a>");
+                out.println("<br><a href=\"catalogue\">Views Catalogue</a>");
+            }
             out.println("</body>");
             out.println("</html>");
     }

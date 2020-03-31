@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -26,6 +27,7 @@ public class AuthenticationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out=response.getWriter();
+        HttpSession session=request.getSession();
         String login=request.getParameter("login");
         String password=request.getParameter("password");
         out.println("<!DOCTYPE html>");
@@ -35,10 +37,12 @@ public class AuthenticationServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
         if((login.equals("michel") && password.equals("123456"))||(login.equals("caroline") && password.equals("abcdef"))){
-            out.print("<h2>Welcome</h2>");
+            out.print("<h2>Welcome "+session.getAttribute("login")+"</h2>");
+            session.setAttribute("login",login);
             out.print("<a href=\"home\" >Homepage</a>");
         }else{
             out.print("<h2>login / mdp erroné</h2>");
+           session.invalidate();
             out.print("<a href=\"login.html\" >Retry</a>");
         }
             out.println("</body>");
